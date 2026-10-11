@@ -29,6 +29,14 @@ def canonical(value):
 
 
 def main():
+    source = ROOT / "src" / "capture.py"
+    expected_source = json.loads((ROOT / "SOURCE_HASHES.json").read_text())
+    code = source.read_bytes()
+    if sha256(code) != expected_source["capture.py"]:
+        raise RuntimeError("collector source hash mismatch")
+    if re.search(r"/Users/[A-Za-z0-9._-]+(?:/|\b)|[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}",
+                 code.decode("utf-8"), re.IGNORECASE):
+        raise RuntimeError("identifier in public collector source")
     files = sorted((ROOT / "samples").glob("*/*.json.xz"))
     head = json.loads((ROOT / "PUBLIC_CHAIN_HEAD.json").read_text())
     previous = "0" * 64

@@ -17,6 +17,12 @@ checked with `python3 verify_public.py`. They do not carry the root signing
 key's signature. Independent confirmation that a derivative came from its
 stated signed original requires access to that private original.
 
+`src/capture.py` is the exact installed collector source, copied only after
+its hash and identifier scan pass. `SOURCE_HASHES.json` records its SHA-256.
+The login publisher and deployment settings stay private because they contain
+machine-specific account paths. `verify_public.py` checks the public source
+hash as well as the sample chain.
+
 The collector targets starts 25 to 50 seconds apart using the operating
 system's cryptographic random source. A login-session publisher attempts a
 new public commit at a random 3 to 6 minute interval, including heartbeat
