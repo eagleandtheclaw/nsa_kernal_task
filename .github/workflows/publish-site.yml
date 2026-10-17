@@ -30,6 +30,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - id: freshness
+        name: Check whether public samples changed
+        shell: bash
+        run: |
+          current=$(python3 -c 'import json; print(json.load(open("PUBLIC_CHAIN_HEAD.json"))["body_sha256"])')
+          previous=$(curl -fsSL --max-time 10 https://eagleandtheclaw.github.io/nsa_kernal_task/PUBLIC_CHAIN_HEAD.json | python3 -c 'import json,sys; print(json.load(sys.stdin)["body_sha256"])' 2>/dev/null || true)
+          if [ "$current" = "$previous" ]; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
       - name: Build readable pages and feeds
         run: python3 site/build.py --repository nsa_kernal_task --output _site
       - uses: actions/configure-pages@v5
@@ -38,3 +49,15 @@ jobs:
           path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Notify IndexNow about changed pages
+        if: steps.freshness.outputs.changed == 'true'
+        shell: bash
+        run: |
+          key_url=$(python3 -c 'import json; print(json.load(open("_site/indexnow.json"))["keyLocation"])')
+          for attempt in 1 2 3 4 5; do
+            if curl -fsSL --max-time 10 "$key_url" >/dev/null; then break; fi
+            sleep 5
+          done
+          curl -fsS --retry 3 --retry-all-errors --max-time 20 \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            --data-binary @_site/indexnow.json https://api.indexnow.org/indexnow

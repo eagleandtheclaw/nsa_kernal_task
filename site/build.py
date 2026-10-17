@@ -150,8 +150,6 @@ def main():
     )
     (output / "index.html").write_text(page(name, description, home, site, site, updated,
                                             feed_url, dataset), encoding="utf-8")
-    (output / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: " + site +
-                                        "sitemap.xml\n", encoding="utf-8")
     (output / "llms.txt").write_text(
         f"# {name}\n\n{description}\n\n- [Dataset home]({site})\n"
         f"- [Latest dated sample]({site}days/{sorted(by_day)[-1]}.html)\n"
@@ -180,6 +178,16 @@ def main():
         ET.SubElement(entry, f"{{{atom_ns}}}summary").text = summary
     ET.ElementTree(feed).write(output / "feed.xml", encoding="utf-8", xml_declaration=True)
     shutil.copyfile(ROOT / "PUBLIC_CHAIN_HEAD.json", output / "PUBLIC_CHAIN_HEAD.json")
+    key = (ROOT / "site" / "indexnow-key.txt").read_text().strip()
+    if len(key) != 32 or any(char not in "0123456789abcdef" for char in key):
+        raise ValueError("invalid public IndexNow key")
+    (output / f"{key}.txt").write_text(key, encoding="utf-8")
+    (output / "indexnow.json").write_text(json.dumps({
+        "host": "eagleandtheclaw.github.io",
+        "key": key,
+        "keyLocation": site + f"{key}.txt",
+        "urlList": [site, site + f"days/{sorted(by_day)[-1]}.html"],
+    }, separators=(",", ":")), encoding="utf-8")
     print(f"built {args.repository}: {len(files)} samples, {len(by_day)} dated pages")
 
 
