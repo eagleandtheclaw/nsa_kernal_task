@@ -60,6 +60,7 @@ def page(title, description, content, url, home_url, updated, feed_url, dataset=
         'a{color:#064e8a}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f5f7;padding:1rem}'
         'nav,footer{border-block:1px solid #d6dce2;padding:.75rem 0}small{color:#4b5563}</style>'
         + structured + f'</head><body><nav><a href="{escape(home_url, quote=True)}">Dataset home</a> · '
+        '<a href="https://eagleandtheclaw.github.io/">All public datasets</a> · '
         '<a href="https://github.com/eagleandtheclaw">GitHub owner</a></nav>'
         + content + f'<footer><small>Last public update: {escape(updated)}. '
         'Published samples are observations, not attribution or evidence of compromise.</small></footer>'
