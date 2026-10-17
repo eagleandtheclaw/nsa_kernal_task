@@ -1,0 +1,13 @@
+# Public kernel_task stack samples
+
+Sanitized, SHA-256-linked macOS `kernel_task` (PID 0) stack samples. The repository name uses the historical spelling `kernal`. New samples appear under `samples/YYYY-MM-DD/` as compressed JSON; check `PUBLIC_CHAIN_HEAD.json` for the latest sequence.
+
+## Start here
+
+- [README](https://github.com/eagleandtheclaw/nsa_kernal_task/blob/main/README.md): provenance, privacy limits, and interpretation.
+- [Current chain head](https://github.com/eagleandtheclaw/nsa_kernal_task/blob/main/PUBLIC_CHAIN_HEAD.json): newest published sequence and public body hash.
+- [Samples](https://github.com/eagleandtheclaw/nsa_kernal_task/tree/main/samples): dated `.json.xz` records.
+- [Incremental extractor](https://github.com/eagleandtheclaw/nsa_kernal_task/blob/main/mine_samples.py): verified JSONL output for new records.
+- [Public verifier](https://github.com/eagleandtheclaw/nsa_kernal_task/blob/main/verify_public.py): full chain and identifier checks.
+
+For updates, clone or pull the repository, run `python3 verify_public.py`, then run `python3 mine_samples.py --since <last-indexed-sequence>`. Store the emitted `sequence`, `source_url`, and hashes with every indexed report. Stack samples are observations, not proof of attribution or compromise.

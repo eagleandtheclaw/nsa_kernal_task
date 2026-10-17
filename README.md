@@ -32,3 +32,14 @@ record rather than guaranteeing continuous coverage.
 
 Stack samples show kernel activity during each sampling window. They do not
 by themselves identify an actor or capture every action on the machine.
+
+## Discover and mine new public samples
+
+See [llms.txt](llms.txt) for a compact source map. Check
+[`PUBLIC_CHAIN_HEAD.json`](PUBLIC_CHAIN_HEAD.json) for the latest published
+sequence. After pulling the repository, run `python3 verify_public.py`, then
+`python3 mine_samples.py --since <last-indexed-sequence>` to emit up to 100 new
+samples as JSON Lines. Repeat with the final emitted sequence until caught up;
+use `--limit` to change batch size. Each line includes the stack report, UTC
+capture time, sequence, hashes, and a commit-pinned source URL. Index only
+the public derivative; the private originals are not in this repository.
