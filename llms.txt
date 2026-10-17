@@ -4,6 +4,7 @@ Sanitized, SHA-256-linked macOS `kernel_task` (PID 0) stack samples. The reposit
 
 ## Start here
 
+- [Readable dataset site](https://eagleandtheclaw.github.io/nsa_kernal_task/): dated, text-accessible sample pages and current metadata.
 - [README](https://github.com/eagleandtheclaw/nsa_kernal_task/blob/main/README.md): provenance, privacy limits, and interpretation.
 - [Current chain head](https://github.com/eagleandtheclaw/nsa_kernal_task/blob/main/PUBLIC_CHAIN_HEAD.json): newest published sequence and public body hash.
 - [Samples](https://github.com/eagleandtheclaw/nsa_kernal_task/tree/main/samples): dated `.json.xz` records.

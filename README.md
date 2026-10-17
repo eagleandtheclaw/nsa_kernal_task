@@ -35,6 +35,12 @@ by themselves identify an actor or capture every action on the machine.
 
 ## Discover and mine new public samples
 
+The [public dataset site](https://eagleandtheclaw.github.io/nsa_kernal_task/)
+provides readable, dated sample pages, an [Atom feed](https://eagleandtheclaw.github.io/nsa_kernal_task/feed.xml),
+and a [sitemap](https://eagleandtheclaw.github.io/nsa_kernal_task/sitemap.xml).
+The site is scheduled to rebuild from these public files hourly; GitHub remains the
+source of record.
+
 See [llms.txt](llms.txt) for a compact source map. Check
 [`PUBLIC_CHAIN_HEAD.json`](PUBLIC_CHAIN_HEAD.json) for the latest published
 sequence. After pulling the repository, run `python3 verify_public.py`, then
