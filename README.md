@@ -11,8 +11,7 @@ reports omit host metadata, thread addresses, thread names, binary UUIDs,
 binary inventory, home paths, email addresses, network addresses, and
 credential-looking strings. Public files are typically a few kilobytes each.
 
-The original, full reports remain in a separate private repository and in a
-root-owned local archive. Public derivatives are SHA-256 linked and can be
+The original, full reports remain in a root-owned local archive. Public derivatives are SHA-256 linked and can be
 checked with `python3 verify_public.py`. They do not carry the root signing
 key's signature. Independent confirmation that a derivative came from its
 stated signed original requires access to that private original.
@@ -48,4 +47,4 @@ sequence. After pulling the repository, run `python3 verify_public.py`, then
 samples as JSON Lines. Repeat with the final emitted sequence until caught up;
 use `--limit` to change batch size. Each line includes the stack report, UTC
 capture time, sequence, hashes, and a commit-pinned source URL. Index only
-the public derivative; the private originals are not in this repository.
+the public derivative; the full originals are not in this repository.
